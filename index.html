@@ -1,0 +1,147 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <title>Water Level in Reservoirs</title>
+        
+        <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+        <style type="text/css">
+        ${demo.css}
+        .liquidFillGaugeText { font-family: Helvetica; font-weight: bold; }
+        </style>
+        <script type="text/javascript">
+        var total;
+        var n = 3000;
+       
+$(function () {
+
+
+    $('#container').highcharts({
+        chart: {
+            type: 'column'
+        },
+        title: {
+            text: 'Water Mark Level Every Minute'
+        },
+        subtitle: {
+            text: 'Source: CaliforniaWaterReservoirs.com'
+        },
+        xAxis: {
+            categories: [
+                'Shasta Reservoir',
+                'Trinity Lake',
+                'Lake Oroville',
+                'Folsom Lake',
+                'New Melones',
+                'Don Pedro Reservoir',
+                'Exchequer Reservoir',
+                'San Luis Reservoir',
+                'Millerton Lake',
+                'Pine Flat Reservoir',
+                'Perris Lake',
+                'Castaic Lake'
+            ],
+             crosshair: {
+                width: 1,
+                color: 'green'
+            }
+        },
+        yAxis: {
+            min: 0,
+            title: {
+                text: 'Water Mark level percent(TAF %)'
+            }
+        },
+        tooltip: {
+            headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+            pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+                '<td style="padding:0"><b>{point.y:.1f} taf</b></td></tr>',
+            footerFormat: '</table>',
+            shared: true,
+            useHTML: true
+        },
+
+
+        plotOptions: {
+            column: {
+                pointPadding: 0.2,
+                borderWidth: 0,
+                groupPadding:0.5,
+                pointWidth:50
+           
+            }
+        },
+        series: [
+        {
+            name: 'Maximum Water Capacity',
+            color:'#f7d774',
+            data:[{y:100,color:'#f7d774'},{y:100,color:'#f7d774'},{y:100,color:'#f7d774'},{y:100,color:'#f7d774'},{y:100,color:'#f7d774'},{y:100,color:'#f7d774'},{y:100,color:'#f7d774'},{y:100,color:'#f7d774'},{y:100,color:'#f7d774'},{y:100,color:'#f7d774'},{y:100,color:'#f7d774'},{y:100,color:'#f7d774'}]  
+        },{
+            name: 'Current Water level',
+            color: '#040498',
+            data:[{y:49.9,color:'#040498'},{y:33.2,color:'#040498'} ,{y:56.4,color:'#040498'} ,{y:29.2,color:'#040498'} ,{y:44.0,color:'#040498'} ,{y:76.0,color:'#040498'} ,{y:35.6,color:'#040498'} ,{y:48.5,color:'#040498'} ,{y:16.4,color:'#040498'} , {y:94.1,color:'#040498'},{y:23.1,color:'#040498'},{y:70.1,color:'#040498'}]  
+        },
+        
+    ]
+    });
+
+setInterval(function() {
+    console.log("retrieving data from server ");
+    var min=0,max=100; 
+    randomdata=[];
+    total=0;
+    for(i=0;i<12;i++){
+        
+        total=total+value;
+
+        
+    } 
+    
+    console.log("Total out of for loop:"+total);
+    $('#container').highcharts().series[1].setData(randomdata);
+}, n);
+
+
+
+});
+</script>
+</head>
+<body>
+<div>
+    <center><h1>
+        Water Mark Levels 
+    </h1>
+</center>
+</div>
+<div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+<script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="https://code.highcharts.com/modules/exporting.js"></script>
+
+<script src="http://d3js.org/d3.v3.min.js" language="JavaScript"></script>
+<script src="liquidFillGauge.js" language="JavaScript"></script>
+
+<script type="text/javascript">
+    var gauge1 = loadLiquidFillGauge("fillgauge1", 100);
+    var config1 = liquidFillGaugeDefaultSettings();
+    config1.circleColor = "#FF7777";
+    config1.textColor = "#FF4444";
+    config1.waveTextColor = "#FFAAAA";
+    config1.waveColor = "#FFDDDD";
+    config1.circleThickness = 0.2;
+    config1.textVertPosition = 0.2;
+    config1.waveAnimateTime = 1000;
+    function gaugeClick(){
+        console.log("Total in gaugeClick:"+total);
+        return total/10;
+    }
+    function NewValue()
+    {
+        setInterval(function()
+            {
+                gauge1.update(gaugeClick());
+            },n);
+        
+    }
+</script>
+    </body>
+</html>
